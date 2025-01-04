@@ -50,7 +50,7 @@ const AboutSection = (props) => {
       <h1 className="text-4xl md:text-6xl font-extrabold leading-snug mt-8 md:mt-0">
         Hi, I'm
         <br />
-        <span className="bg-white px-1 italic">Wawa Sensei</span>
+        <span className="bg-white px-1 italic">Sohazur Islam</span>
       </h1>
       <motion.p
         className="text-lg text-gray-600 mt-4"
@@ -67,9 +67,9 @@ const AboutSection = (props) => {
           delay: 1.5,
         }}
       >
-        I make YouTube videos to help developers
+        I optimize systems, create scalable tech solutions,
         <br />
-        learn how to build 3D apps
+        and leverage AI for innovation.
       </motion.p>
       <motion.button
         onClick={() => setSection(3)}
@@ -96,38 +96,39 @@ const AboutSection = (props) => {
 
 const skills = [
   {
-    title: "Threejs / React Three Fiber",
+    title: "Python / R / JavaScript",
+    level: 90,
+  },
+  {
+    title: "Quantum Computing",
     level: 80,
   },
   {
-    title: "React / React Native",
-    level: 90,
+    title: "Blockchain Development",
+    level: 85,
   },
   {
-    title: "Nodejs",
-    level: 90,
+    title: "Web Development",
+    level: 80,
   },
   {
-    title: "Typescript",
-    level: 60,
-  },
-  {
-    title: "3D Modeling",
-    level: 40,
+    title: "Machine Learning / AI",
+    level: 85,
   },
 ];
-const languages = [
+
+const focusAreas = [
   {
-    title: "🇫🇷 French",
-    level: 100,
+    title: "Sustainability & Innovation",
+    level: 90,
   },
   {
-    title: "🇺🇸 English",
+    title: "Scalable AI Solutions",
+    level: 85,
+  },
+  {
+    title: "Advanced Computational Techniques",
     level: 80,
-  },
-  {
-    title: "🇯🇵 Japanese",
-    level: 20,
   },
 ];
 
@@ -180,10 +181,10 @@ const SkillsSection = () => {
         </div>
         <div>
           <h2 className="text-3xl md:text-5xl font-bold mt-10 text-white">
-            Languages
+            Interests
           </h2>
           <div className="mt-8 space-y-4">
-            {languages.map((lng, index) => (
+            {focusAreas.map((lng, index) => (
               <div className="w-full md:w-64" key={index}>
                 <motion.h3
                   className="text-lg md:text-xl font-bold text-gray-100"
@@ -250,7 +251,9 @@ const ProjectsSection = () => {
         >
           ← Previous
         </button>
-        <h2 className="text-3xl md:text-5xl font-bold">Projects</h2>
+        <h2 className="text-3xl md:text-5xl font-bold">
+          Achievements & Projects
+        </h2>
         <button
           className="hover:text-indigo-600 transition-colors"
           onClick={nextProject}
