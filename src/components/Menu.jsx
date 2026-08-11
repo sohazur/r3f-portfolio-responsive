@@ -4,6 +4,9 @@ export const Menu = (props) => {
   return (
     <>
       <button
+        type="button"
+        aria-label={menuOpened ? "Close navigation" : "Open navigation"}
+        aria-expanded={menuOpened}
         onClick={() => setMenuOpened(!menuOpened)}
         className="z-20 fixed top-4 right-4 md:top-12 md:right-12 p-3 bg-indigo-600 w-11 h-11 rounded-md"
       >
@@ -42,6 +45,7 @@ const MenuButton = (props) => {
   const { label, onClick } = props;
   return (
     <button
+      type="button"
       onClick={onClick}
       className="text-2xl font-bold cursor-pointer hover:text-indigo-600 transition-colors"
     >

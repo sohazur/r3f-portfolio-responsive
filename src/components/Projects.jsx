@@ -8,16 +8,22 @@ import { useEffect, useRef } from "react";
 
 export const projects = [
   {
+    title: "ReachLLM",
+    url: "https://www.reachllm.com/",
+    image: "projects/reachllm.webp",
+    description: "AI-native GEO agency and visibility software for brands.",
+  },
+  {
+    title: "Foyer",
+    url: "https://tryfoyer.ai/",
+    image: "projects/foyer.svg",
+    description: "A voice sales agent that makes websites speak and sell.",
+  },
+  {
     title: "Carbon2Capital",
     url: "https://carbon2capital.com",
     image: "projects/c2c.png",
-    description: "Invest in green startups and offset emissions easily",
-  },
-  {
-    title: "Escodelar",
-    url: "https://escodelar.ae",
-    image: "projects/escodelar.png",
-    description: "Connects developers and agents to sell UAE properties.",
+    description: "A climate investing platform I previously co-founded.",
   },
   // {
   //   title: "3D Avatar",
@@ -87,7 +93,7 @@ const Project = (props) => {
     <group {...props}>
       <mesh
         position-z={-0.001}
-        onClick={() => window.open(project.url, "_blank")}
+        onClick={() => window.open(project.url, "_blank", "noopener,noreferrer")}
         ref={background}
       >
         <planeGeometry args={[2.2, 2]} />

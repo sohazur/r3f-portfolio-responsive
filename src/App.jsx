@@ -40,7 +40,7 @@ function App() {
               </Suspense>
             </Scroll>
             <Scroll html>
-              {started && <Interface setSection={setSection} />}
+              <Interface setSection={setSection} />
             </Scroll>
           </ScrollControls>
         </Canvas>
