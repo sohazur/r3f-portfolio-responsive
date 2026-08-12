@@ -61,6 +61,21 @@ if (!Array.isArray(graph["@graph"]) || graph["@graph"].length < 5) {
   throw new Error("JSON-LD graph is incomplete");
 }
 
+const profilePage = graph["@graph"].find(
+  (node) => node["@type"] === "ProfilePage"
+);
+const isoDateTimeWithTimezone =
+  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/;
+if (
+  !profilePage ||
+  !isoDateTimeWithTimezone.test(profilePage.dateModified) ||
+  Number.isNaN(Date.parse(profilePage.dateModified))
+) {
+  throw new Error(
+    "ProfilePage dateModified must be a valid ISO 8601 datetime with timezone"
+  );
+}
+
 if (!sitemap.includes("https://sohazur.com/images/sohazur-islam.jpg")) {
   throw new Error("Portrait is missing from the image sitemap");
 }
