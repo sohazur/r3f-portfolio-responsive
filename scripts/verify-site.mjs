@@ -7,7 +7,7 @@ const requiredFiles = [
   "netlify.toml",
   "public/favicon.svg",
   "public/images/sohazur-islam.jpg",
-  "public/projects/foyer.svg",
+  "public/projects/c2c.png",
   "public/projects/reachllm.webp",
   "public/robots.txt",
   "public/site.webmanifest",
@@ -40,7 +40,8 @@ const requiredHtml = [
   '"https://www.linkedin.com/in/sohazur/"',
   '"https://github.com/sohazur"',
   '"https://www.reachllm.com/"',
-  '"https://tryfoyer.ai/"',
+  '"https://carbon2capital.com/"',
+  "previously co-founded Carbon2Capital",
   '<form name="contact" netlify netlify-honeypot="bot-field" hidden>',
   '<input type="hidden" name="form-name" value="contact" />',
 ];
@@ -70,8 +71,17 @@ if (portrait.size < 100_000) {
 if (!interfaceSource.includes('body: new URLSearchParams(new FormData(form)).toString()')) {
   throw new Error("React contact form is not posting URL-encoded form data");
 }
-if (projectsSource.includes("Carbon2Capital")) {
-  throw new Error("Outdated Carbon2Capital project is still present");
+if (!projectsSource.includes("Carbon2Capital")) {
+  throw new Error("Carbon2Capital is missing from the project carousel");
+}
+for (const [label, source] of [
+  ["HTML identity graph", html],
+  ["visible interface", interfaceSource],
+  ["project carousel", projectsSource],
+]) {
+  if (/Foyer|tryfoyer/i.test(source)) {
+    throw new Error(`Removed Foyer identity claim is still present in ${label}`);
+  }
 }
 if (netlifyConfig.includes('to = "https://sohazur.com/:splat"')) {
   throw new Error("A hostname redirect is still configured");

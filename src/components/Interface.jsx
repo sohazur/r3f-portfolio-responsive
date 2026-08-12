@@ -78,14 +78,14 @@ const AboutSection = (props) => {
           >
             ReachLLM
           </a>
-          .<br /> Co-founder of{" "}
+          .<br /> Previously co-founded{" "}
           <a
             className="underline decoration-indigo-600 decoration-2 underline-offset-4"
-            href="https://tryfoyer.ai/"
+            href="https://carbon2capital.com/"
             target="_blank"
             rel="noreferrer"
           >
-            Foyer
+            Carbon2Capital
           </a>
           .
         </span>

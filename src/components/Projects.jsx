@@ -14,10 +14,10 @@ export const projects = [
     description: "AI-native GEO agency and visibility software for brands.",
   },
   {
-    title: "Foyer",
-    url: "https://tryfoyer.ai/",
-    image: "projects/foyer.svg",
-    description: "A voice sales agent that makes websites speak and sell.",
+    title: "Carbon2Capital",
+    url: "https://carbon2capital.com/",
+    image: "projects/c2c.png",
+    description: "A UAE-localized carbon footprint API I previously co-founded.",
   },
   // {
   //   title: "3D Avatar",
