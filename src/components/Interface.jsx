@@ -1,6 +1,6 @@
-import { ValidationError, useForm } from "@formspree/react";
 import { motion } from "framer-motion";
 import { useAtom } from "jotai";
+import { useState } from "react";
 import { currentProjectAtom, projects } from "./Projects";
 
 const Section = (props) => {
@@ -296,7 +296,38 @@ const profileLinks = [
 ];
 
 const ContactSection = () => {
-  const [state, handleSubmit] = useForm("mayzgjbd");
+  const [submissionState, setSubmissionState] = useState("idle");
+  const [submissionError, setSubmissionError] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+
+    setSubmissionState("submitting");
+    setSubmissionError("");
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(new FormData(form)).toString(),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Contact form returned ${response.status}`);
+      }
+
+      form.reset();
+      setSubmissionState("succeeded");
+    } catch (error) {
+      console.error("Contact form submission failed", error);
+      setSubmissionError(
+        "Your message could not be sent. Please try again or reach out on LinkedIn."
+      );
+      setSubmissionState("error");
+    }
+  };
+
   return (
     <Section>
       <h2 className="text-3xl md:text-5xl font-bold">Contact me</h2>
@@ -321,10 +352,25 @@ const ContactSection = () => {
         ))}
       </nav>
       <div className="mt-4 p-5 md:p-6 rounded-md bg-white bg-opacity-50 w-96 max-w-full">
-        {state.succeeded ? (
-          <p className="text-gray-900 text-center">Thanks for your message !</p>
+        {submissionState === "succeeded" ? (
+          <p className="text-gray-900 text-center" role="status">
+            Thanks—your message has been sent.
+          </p>
         ) : (
-          <form onSubmit={handleSubmit}>
+          <form
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+            onSubmit={handleSubmit}
+          >
+            <input type="hidden" name="form-name" value="contact" />
+            <p hidden>
+              <label>
+                Don’t fill this out if you’re human:
+                <input name="bot-field" />
+              </label>
+            </p>
             <label htmlFor="name" className="font-medium text-gray-900 block mb-1">
               Name
             </label>
@@ -350,12 +396,6 @@ const ContactSection = () => {
               required
               className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 p-3"
             />
-            <ValidationError
-              className="mt-1 text-red-500"
-              prefix="Email"
-              field="email"
-              errors={state.errors}
-            />
             <label
               htmlFor="message"
               className="font-medium text-gray-900 block mb-1 mt-4"
@@ -368,16 +408,17 @@ const ContactSection = () => {
               required
               className="h-24 block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 p-3"
             />
-            <ValidationError
-              className="mt-1 text-red-500"
-              errors={state.errors}
-            />
+            {submissionError && (
+              <p className="mt-3 text-sm font-medium text-red-700" role="alert">
+                {submissionError}
+              </p>
+            )}
             <button
               type="submit"
-              disabled={state.submitting}
+              disabled={submissionState === "submitting"}
               className="bg-indigo-600 text-white py-3 px-8 rounded-lg font-bold text-lg mt-5 disabled:cursor-wait disabled:opacity-60"
             >
-              {state.submitting ? "Sending…" : "Submit"}
+              {submissionState === "submitting" ? "Sending…" : "Submit"}
             </button>
           </form>
         )}

@@ -4,13 +4,6 @@
 
 [[redirects]]
   from = "/*"
-  to = "https://sohazur.com/:splat"
-  status = 301
-  force = true
-  conditions = { Host = ["www.sohazur.com"] }
-
-[[redirects]]
-  from = "/*"
   to = "/index.html"
   status = 200
 

@@ -20,6 +20,15 @@ const html = await readFile(resolve(root, "index.html"), "utf8");
 const sitemap = await readFile(resolve(root, "public/sitemap.xml"), "utf8");
 const robots = await readFile(resolve(root, "public/robots.txt"), "utf8");
 const portrait = await stat(resolve(root, "public/images/sohazur-islam.jpg"));
+const netlifyConfig = await readFile(resolve(root, "netlify.toml"), "utf8");
+const interfaceSource = await readFile(
+  resolve(root, "src/components/Interface.jsx"),
+  "utf8"
+);
+const projectsSource = await readFile(
+  resolve(root, "src/components/Projects.jsx"),
+  "utf8"
+);
 
 const requiredHtml = [
   "<title>Sohazur Islam — Entrepreneur &amp; Founder of ReachLLM</title>",
@@ -32,6 +41,8 @@ const requiredHtml = [
   '"https://github.com/sohazur"',
   '"https://www.reachllm.com/"',
   '"https://tryfoyer.ai/"',
+  '<form name="contact" netlify netlify-honeypot="bot-field" hidden>',
+  '<input type="hidden" name="form-name" value="contact" />',
 ];
 
 for (const fragment of requiredHtml) {
@@ -55,6 +66,15 @@ if (!robots.includes("Sitemap: https://sohazur.com/sitemap.xml")) {
 }
 if (portrait.size < 100_000) {
   throw new Error("Representative portrait appears unexpectedly small");
+}
+if (!interfaceSource.includes('body: new URLSearchParams(new FormData(form)).toString()')) {
+  throw new Error("React contact form is not posting URL-encoded form data");
+}
+if (projectsSource.includes("Carbon2Capital")) {
+  throw new Error("Outdated Carbon2Capital project is still present");
+}
+if (netlifyConfig.includes('to = "https://sohazur.com/:splat"')) {
+  throw new Error("A hostname redirect is still configured");
 }
 
 console.log(`Verified ${requiredFiles.length} identity, metadata, and crawl files.`);

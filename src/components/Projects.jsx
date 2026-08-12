@@ -19,12 +19,6 @@ export const projects = [
     image: "projects/foyer.svg",
     description: "A voice sales agent that makes websites speak and sell.",
   },
-  {
-    title: "Carbon2Capital",
-    url: "https://carbon2capital.com",
-    image: "projects/c2c.png",
-    description: "A climate investing platform I previously co-founded.",
-  },
   // {
   //   title: "3D Avatar",
   //   url: "https://www.youtube.com/watch?v=pGMKIyALcK0",
