@@ -33,6 +33,8 @@ const projectsSource = await readFile(
 const requiredHtml = [
   "<title>Sohazur Islam — Entrepreneur &amp; Founder of ReachLLM</title>",
   '<link rel="canonical" href="https://sohazur.com/"',
+  'name="google-site-verification"',
+  'content="xfSSKT6l3ScAggaMdsJffKTlYXYWCO8OW19K0qCWeE4"',
   'property="og:image" content="https://sohazur.com/images/sohazur-islam.jpg"',
   '"@type": "ProfilePage"',
   '"@type": "Person"',
